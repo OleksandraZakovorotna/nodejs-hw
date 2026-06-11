@@ -3,7 +3,7 @@ import { celebrate } from 'celebrate';
 import {
   loginUserSchema,
   registerUserSchema,
-} from '../validations/authValidator.js';
+} from '../validations/authValidation.js';
 import {
   loginUser,
   registerUser,
