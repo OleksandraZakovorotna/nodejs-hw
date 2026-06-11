@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
+import cookieParser from 'cookie-parser';
 import { connectMongoDB } from './db/connectMongoDB.js';
 
 import { errors } from 'celebrate';
@@ -9,6 +10,7 @@ import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { logger } from './middleware/logger.js';
 
 import notesRoutes from './routes/notesRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
 const app = express();
 
@@ -22,12 +24,14 @@ app.use(
   }),
 );
 app.use(cors());
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   console.log(`Time: ${new Date().toLocaleString()}`);
   next();
 });
 
+app.use(authRoutes);
 app.use(notesRoutes);
 
 app.use(notFoundHandler);
